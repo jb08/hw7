@@ -1,8 +1,16 @@
+/*********************************************************
+ * WARNING: DO NOT CHANGE THIS FILE.                     *
+ *                                                       *
+ * If you do, the grading tests are very likely to fail. *
+ * not compile and pass.                                 *
+ *********************************************************/
 #pragma once
 
 #include <string>
 
 namespace list_set {
+
+// ATTENTION: DO NOT CHANGE THIS FILE IN ANY WAY
 
 class List_set
 {
@@ -31,6 +39,8 @@ public:
     // Removes the given element from this set.
     void remove(const element_t&);
 
+// ATTENTION: DO NOT CHANGE THIS FILE IN ANY WAY
+
 private:
     // "Forward" declaration of Node type (to be defined in List_set.cpp).
     struct Node;
@@ -41,5 +51,7 @@ private:
     // The first link of the list, or nullptr if empty.
     link_t link_;
 };
+
+// ATTENTION: DO NOT CHANGE THIS FILE IN ANY WAY
 
 } // end namespace list_set

@@ -16,7 +16,12 @@ To start working, you need to clone a local copy of your HW7 repo. Choose *Check
 
 ### Background
 
-The linked list, which we saw in class, is a simple yet versatile data structure. One possible use for it is to represent a set of elements, where each element goes in one node in the list. The operations on the set include:
+The linked list, which we saw in class, is a simple yet versatile data structure. It is represented as a pointer to a node (that is, the address of a node) that contains two member variables: the list element stored in the node, and either a pointer to another node, or the special value `nullptr` to terminate the list.
+
+One possible use for a linked list is to represent a set of elements,
+where each element goes in one node in the list. To compute with sets in
+C++, we could make a set class that uses a linked to store the set’s
+elements, and that provides the following operations:
 
   - `bool is_empty() const`, to determine whether the set is empty;
 
@@ -30,7 +35,17 @@ The linked list, which we saw in class, is a simple yet versatile data structure
 
 ## Your task
 
-For this assignment, you will implement class `List_set`, which uses a linked list to represent a set of `std::string`s. You’ve been provided a file `src/List_set.h`—**which you should not change in any way**—and which contains a definition of the `List_set` class with declarations of its member functions. It also forward-declares a `struct Node` and defines one member variable, `link_`, to be a `std::shared_ptr<Node>`. Your job is to implement this set interface in `src/List_set.cpp`, including providing a complete definition of `Node`, and to test it thoroughly in `test/List_set_tests.cpp`. You must not modify the file `src/List_set.h`.
+For this assignment, your job is to implement a class `List_set`, which uses a linked list to represent a set of `std::string`s. You’ve been provided with three C++ source files:
+
+  - `src/List_set.h`—**which you should not change in any way**—contains a definition of the `List_set` class with declarations of its member functions. It also forward-declares a `struct Node` and defines one member variable, `link_`, to be a `std::shared_ptr<Node>`.
+
+  - `src/List_set.cpp` is where you will implement the `List_set` class. One constructor, which takes an `initialization_list`, has been defined for you. It is up to you to define the `Node` class, the default constructor, and the five member functions listed above, in this file.
+
+  - `test/List_set_tests.cpp` is where you will add tests for your `List_set` class.
+
+In short: Your job is to implement the set interface from `src/List_set.h` in `src/List_set.cpp`, including providing a complete definition of `Node`, and to test it thoroughly in `test/List_set_tests.cpp`. You must not modify the file `src/List_set.h`.
+
+### Example test
 
 Here is an example usage of the class, which you may use as a test (but you will need many more, smaller tests as well):
 
@@ -92,15 +107,19 @@ If `p` is a `std::shared_ptr<Node>` and `Node` has a `next` member variable, the
 
 Then `current` will be a shared pointer to each node in turn in the body of the loop.
 
-### The sentinel trick
+### The dummy node trick
 
 You may find that removal of elements involves some tricky corner cases, because to remove a node you need access to the precessor node. But the first node in the list doesn’t have a predecessor node, which makes it a special case.
 
-Alternatively, you can maintain a *sentinel node*—an extra node at the beginning (or end) of the list that doesn’t carry any meaningful data but makes sure that every real node has a predecessor (or successor). (The node would probably store the empty string, but that doesn’t mean the empty string is always in your set—the sentinel node’s element isn’t considered part of the set.) This makes it easier to treat the first node uniformly, since you can now do removal by finding the node whose successor contains the element to be removed, and then remove the successor node.
+Alternatively, you can maintain a *dummy node*—an extra node at the beginning (or end) of the list that doesn’t carry any meaningful data but makes sure that every real, non-dummy node has a predecessor (or successor). (The dummy node would probably store the empty string, but that doesn’t mean the empty string is always in your set—the dummy node’s element isn’t considered part of the set.) This makes it easier to treat the first node uniformly, since you can now do removal by finding the node whose successor contains the element to be removed, and then remove the successor node.
 
-Of course, to iterate through all the real nodes, it’s necessary to skip the initial sentinel node:
+Of course, to iterate through all the real nodes, it’s necessary to skip the initial dummy node:
 
     for (auto current = p->next; current != nullptr; current = current->next)
+
+You can also, of course, iterate over all but the last node (*i.e.,* iterate over the predecessors of the non-dummy nodes):
+
+    for (auto current = p; current->next != nullptr; current = current->next)
 
 ## Grading
 

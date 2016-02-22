@@ -2,7 +2,6 @@
  * WARNING: DO NOT CHANGE THIS FILE.                     *
  *                                                       *
  * If you do, the grading tests are very likely to fail. *
- * not compile and pass.                                 *
  *********************************************************/
 #pragma once
 

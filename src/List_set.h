@@ -21,7 +21,7 @@ public:
     List_set();
 
     // Constructs the set with the given elements.
-    List_set(const std::initializer_list<element_t>&);
+    List_set(std::initializer_list<element_t>);
 
     // Returns whether this set is empty.
     bool is_empty() const;

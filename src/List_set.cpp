@@ -14,7 +14,7 @@ List_set::List_set()
         : link_{ std::make_shared<Node>(element_t{}, nullptr) }
 { }
 
-List_set::List_set(const std::initializer_list<element_t>& elements)
+List_set::List_set(std::initializer_list<element_t> elements)
         : List_set{}
 {
     for (const auto& element : elements)

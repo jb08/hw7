@@ -12,7 +12,7 @@ struct List_set::Node
 //
 //     List_set abc{"a", "b", "c"};
 //
-List_set::List_set(const std::initializer_list<element_t>& elements)
+List_set::List_set(std::initializer_list<element_t> elements)
         : List_set{}
 {
     for (const auto& element : elements)
